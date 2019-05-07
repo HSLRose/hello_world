@@ -1,0 +1,32 @@
+<?php
+//查询数据表
+include './db.php';
+$r = get_all("select * from t_tiwen where uid={$_GET['uid']}");
+$tit=$r[0]['tit'];
+$cnt=$r[0]['cnt'];
+echo '
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>百度知道——回答问题</title>
+    <link type="text/css" href="./css/bootstrap4.min.css" rel="stylesheet" />
+</head>
+<body>
+<from>
+    <div class="card">
+        <div class="card-body">
+        <h4 class="card-title">'.$tit.'</h4>
+        <p class="card-text">'.$cnt.'</p>
+    </div>
+        <div class="form-group">
+        <label for="email">回答:</label>
+            <input type="text" class="form-control" placeholder="请输入您的答案">
+            <button type="button" class="btn btn-primary">我要回答</button>
+        </div>
+    </div>
+</from>
+</body>
+</html>
+';
+
