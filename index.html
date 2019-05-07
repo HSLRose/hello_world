@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>百度知道——问题提交</title>
+<link type="text/css" href="./css/bootstrap4.min.css" rel="stylesheet" />
+</head>
+<body>
+<form name="question" autocomplete="off">
+	<ul id="formBox">
+		<div class="form-group">
+			<label for="title">问题:</label>
+			<input type="title" class="form-control" placeholder="请输入您的问题">
+		</div>
+		<div class="form-group">
+			<label for="text">描述:</label>
+			<textarea rows="5" class="form-control" placeholder="请输入您的问题描述"></textarea>
+		</div>
+		<button type="button" class="btn btn-primary">提交问题</button>
+
+	</ul>
+</form>
+<script type="text/javascript" src="./js/axios.min.js"></script>
+<script type="text/javascript">
+func={
+	"one":function(slt)
+	{
+		return document.querySelector(slt);
+		
+	}
+	,"all":function(slt)
+	{
+		return document.querySelectorAll(slt);
+		
+	}
+}
+
+
+func.one("button").onclick=function()
+{
+	var tit=func.one("input").value,
+		cnt=func.one("textarea").value
+		fd=new FormData();
+		
+	//console.log(tit, cnt);
+	if(!tit || !cnt )
+	{
+		alert("有内容为空");
+		return;
+	}
+	
+	fd.append('tit', tit);
+	fd.append('cnt', cnt);
+
+	//ajax提交数据到后台
+	//alert('ok');
+	axios({
+		url:"rev.php"
+		,method:"post"
+		,data:fd
+	}).then(function(r){
+		r=r.data;
+		if(r == 'ok' ){
+			alert('已经提交您的问题！');
+			location.href="questions.html";
+		}
+		console.log(r);
+		
+	}).catch(function(e)
+	{
+		alert(e);
+	})
+
+	
+}
+
+
+</script>
+</body>
+</html>
