@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>百度知道——问题列表</title>
+    <link type="text/css" href="./css/bootstrap4.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2>待回答的问题</h2>
+        <div class="card">
+            <ul id="title" class="list-group"></ul>
+        </div>
+    </div>
+<script src="./js/axios.min.js"></script>
+<script>
+    axios({
+        url:'rev1.php',
+        method:'get'
+    }).then(function(r){
+        r=r.data;
+        var w_title=document.getElementById("title");
+        var ar='';
+        for(i=0;i<r.length;i++){
+        ar+='<li class="list-group-item list-group-item-primary"><a id="hyperlinks" href="q_hd.php?uid='+r[i].uid+'">'+r[i].tit+'</a><br><i style:"float:right">'+r[i].create_at+'</i></li>';
+        }
+        w_title.innerHTML=ar;
+    })
+</script>
+</body>
+</html>
